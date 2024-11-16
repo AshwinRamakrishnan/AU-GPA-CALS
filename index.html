@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPA Calculator - Anna University</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>FUTECX</h1>
+    <h4>Anna University CSE GPA Calculator</h4>
+
+    <!-- Form for selecting semester and calculating GPA -->
+    <form id="gpaForm">
+      <label for="semester">Select Semester:</label>
+      <select id="semester" required>
+        <option value="">Select Semester</option>
+        <option value="1">1st Semester</option>
+        <option value="2">2nd Semester</option>
+        <option value="3rd_semester">3rd Semester</option>
+        <option value="4th_semester">4th Semester</option>
+        <option value="5th_semester">5th Semester</option>
+        <option value="6th_semester">6th Semester</option>
+        <option value="7th_semester">7th Semester</option>
+        <option value="8th_semester">8th Semester</option>
+      </select>
+
+      <div id="subjectContainer"></div>
+
+      <button type="submit">Calculate GPA</button>
+    </form>
+
+    <!-- Result display -->
+    <div id="result"></div>
+
+  <script>
+    // JSON Data for subjects and grades
+    const subjectsData = {
+    
+          "1": [
+            { "code": "BS3171", "name": "Physics and Chemistry Laboratory", "credits": 2 },
+            { "code": "CY3151", "name": "Engineering Chemistry", "credits": 3 },
+            { "code": "GE3151", "name": "Problem Solving and Python Programming", "credits": 3 },
+            { "code": "GE3152", "name": "Tamil", "credits": 1 },
+            { "code": "GE3171", "name": "Problem Solving and Python Programming Laboratory", "credits": 2 },
+            { "code": "GE3172", "name": "Engineering Workshop Laboratory", "credits": 1 },
+            { "code": "HS3151", "name": "Professional English - I", "credits": 3 },
+            { "code": "MA3151", "name": "Matrices and Calculus", "credits": 4 },
+            { "code": "PH3151", "name": "Engineering Physics", "credits": 3 }
+          ],
+        "2": [
+    { "code": "BE3251", "name": "Basic Electrical and Electronics Engineering", "credits": 3 },
+    { "code": "CS3251", "name": "Programming in C", "credits": 3 },
+    { "code": "CS3271", "name": "Programming in C Laboratory", "credits": 2 },
+    { "code": "GE3251", "name": "Engineering Graphics", "credits": 4 },
+    { "code": "GE3271", "name": "Engineering Practices Laboratory", "credits": 2 },
+    { "code": "GE3252", "name": "Tamil II", "credits": 1 },
+    { "code": "GE3272", "name": "CL", "credits": 2 },
+    { "code": "HS3252", "name": "Professional English - II", "credits": 2 },
+    { "code": "MA3251", "name": "Statistics and Numerical Methods", "credits": 4 },
+    { "code": "PH3256", "name": "Physics for Information Science", "credits": 3 }
+],
+
+      
+     
+      
+      "3": [
+        { "code": "MA3354", "name": "Discrete Mathematics", "credits": 4 },
+        { "code": "CS3351", "name": "Digital Principles and Computer Organization", "credits": 4 },
+        { "code": "CS3352", "name": "Foundations of Data Science", "credits": 4 },
+        { "code": "CS3301", "name": "Data Structures", "credits": 4 },
+        { "code": "CS3391", "name": "Object-Oriented Programming", "credits": 3 },
+        { "code": "CS3311", "name": "Data Structures Laboratory", "credits": 2 },
+        { "code": "CS3381", "name": "Object-Oriented Programming Laboratory", "credits": 2 },
+        { "code": "CS3361", "name": "Data Science Laboratory", "credits": 2 }
+      ],
+      "4": [
+        { "code": "CS3452", "name": "Theory of Computation", "credits": 4 },
+        { "code": "CS3491", "name": "Artificial Intelligence and Machine Learning", "credits": 4 },
+        { "code": "CS3492", "name": "Database Management Systems", "credits": 4 },
+        { "code": "CS3401", "name": "Algorithms", "credits": 4 },
+        { "code": "CS3451", "name": "Introduction to Operating Systems", "credits": 3 },
+        { "code": "GE3451", "name": "Environmental Sciences and Sustainability", "credits": 3 },
+        { "code": "CS3461", "name": "Operating Systems Laboratory", "credits": 2 },
+        { "code": "CS3481", "name": "Database Management Systems Laboratory", "credits": 2 }
+      ]
+    };
+
+    const semesterSelect = document.getElementById('semester');
+    const subjectContainer = document.getElementById('subjectContainer');
+    const form = document.getElementById('gpaForm');
+    const result = document.getElementById('result');
+
+    // Show subjects based on selected semester
+    semesterSelect.addEventListener('change', () => {
+      const semester = semesterSelect.value;
+      subjectContainer.innerHTML = ''; // Clear previous subjects
+
+      if (semester && subjectsData[semester]) {
+        subjectsData[semester].forEach(subject => {
+          const row = document.createElement('div');
+          row.classList.add('subject-row');
+          row.innerHTML = `
+            <label>${subject.code} - ${subject.name} (Credits: ${subject.credits})</label>
+            <select class="grade">
+              <option value="10">O</option>
+              <option value="9">A+</option>
+              <option value="8">A</option>
+              <option value="7">B+</option>
+              <option value="6">B</option>
+              <option value="5">C</option>
+            </select>
+          `;
+          subjectContainer.appendChild(row);
+        });
+      }
+    });
+
+    // Handle GPA calculation
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const grades = document.querySelectorAll('.grade');
+      const semester = semesterSelect.value;
+      let totalCredits = 0;
+      let totalPoints = 0;
+
+      if (!semester) {
+        result.textContent = 'Please select a valid semester!';
+        return;
+      }
+
+      let allGradesSelected = true;
+
+      grades.forEach((grade, index) => {
+        if (!grade.value) {
+          allGradesSelected = false;
+        }
+
+        const gradeValue = parseFloat(grade.value);
+        const subjectCredits = subjectsData[semester][index].credits;
+
+        totalCredits += subjectCredits;
+        totalPoints += gradeValue * subjectCredits;
+      });
+
+      if (!allGradesSelected) {
+        result.textContent = 'Please select grades for all subjects!';
+        return;
+      }
+
+      if (totalCredits === 0) {
+        result.textContent = 'Please select valid grades and semester!';
+      } else {
+        const gpa = (totalPoints / totalCredits).toFixed(2);
+        result.textContent = `Your GPA is: ${gpa}`;
+      }
+    });
+  </script>
+</body>
+</html>

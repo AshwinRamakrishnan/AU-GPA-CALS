@@ -1,0 +1,42 @@
+{
+    "semesters": {
+        "1": [
+            { "code": "HS3151", "name": "Professional English - I", "credits": 3 },
+            { "code": "MA3151", "name": "Matrices and Calculus", "credits": 4 },
+            { "code": "PH3151", "name": "Engineering Physics", "credits": 3 },
+            { "code": "CY3151", "name": "Engineering Chemistry", "credits": 3 },
+            { "code": "GE3151", "name": "Problem Solving and Python Programming", "credits": 3 },
+            { "code": "GE3171", "name": "Problem Solving and Python Programming Laboratory", "credits": 2 },
+            { "code": "BS3171", "name": "Physics and Chemistry Laboratory", "credits": 2 }
+        ],
+        "2": [
+            { "code": "HS3251", "name": "Professional English - II", "credits": 3 },
+            { "code": "MA3251", "name": "Statistics and Numerical Methods", "credits": 4 },
+            { "code": "PH3256", "name": "Physics for Information Science", "credits": 3 },
+            { "code": "BE3251", "name": "Basic Electrical and Electronics Engineering", "credits": 3 },
+            { "code": "GE3251", "name": "Engineering Graphics", "credits": 4 },
+            { "code": "GE3271", "name": "Engineering Practices Laboratory", "credits": 2 },
+            { "code": "CS3271", "name": "Programming in C Laboratory", "credits": 2 }
+        ],
+        "3": [
+            { "code": "MA3354", "name": "Discrete Mathematics", "credits": 4 },
+            { "code": "CS3351", "name": "Digital Principles and Computer Organization", "credits": 4 },
+            { "code": "CS3352", "name": "Foundations of Data Science", "credits": 4 },
+            { "code": "CS3301", "name": "Data Structures", "credits": 4 },
+            { "code": "CS3391", "name": "Object-Oriented Programming", "credits": 3 },
+            { "code": "CS3311", "name": "Data Structures Laboratory", "credits": 2 },
+            { "code": "CS3381", "name": "Object-Oriented Programming Laboratory", "credits": 2 },
+            { "code": "CS3361", "name": "Data Science Laboratory", "credits": 2 }
+        ],
+        "4": [
+            { "code": "CS3452", "name": "Theory of Computation", "credits": 4 },
+            { "code": "CS3491", "name": "Artificial Intelligence and Machine Learning", "credits": 4 },
+            { "code": "CS3492", "name": "Database Management Systems", "credits": 4 },
+            { "code": "CS3401", "name": "Algorithms", "credits": 4 },
+            { "code": "CS3451", "name": "Introduction to Operating Systems", "credits": 3 },
+            { "code": "GE3451", "name": "Environmental Sciences and Sustainability", "credits": 3 },
+            { "code": "CS3461", "name": "Operating Systems Laboratory", "credits": 2 },
+            { "code": "CS3481", "name": "Database Management Systems Laboratory", "credits": 2 }
+        ]
+    }
+}
